@@ -102,8 +102,8 @@ sudo mysql
 5、创建新的数据库用户（可选，但推荐）:
 出于安全考虑，创建一个不是 root 的新用户是一个好习惯。以下命令创建一个新用户并授权：
 ``` bash
-CREATE USER 'your_new_user'@'localhost' IDENTIFIED BY 'your_password';
-GRANT ALL PRIVILEGES ON *.* TO 'your_new_user'@'localhost' WITH GRANT OPTION;
+CREATE USER 'lele'@'localhost' IDENTIFIED BY 'Ogcloud123';
+GRANT ALL PRIVILEGES ON *.* TO 'lele'@'localhost' WITH GRANT OPTION;
 FLUSH PRIVILEGES;
 EXIT;
 
@@ -112,6 +112,7 @@ EXIT;
 登录到 MySQL 后，创建一个新的数据库：
 
 ``` bash
+CREATE DATABASE mydatabase;
 
 ```
 7、修改 MySQL 配置以允许远程访问（如果需要）:
