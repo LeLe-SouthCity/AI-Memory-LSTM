@@ -7,7 +7,61 @@ pip install langchain langchain-community langchainhub langchain-chroma bs4
 ```
 
 
+# 环境配置
 
+# 新主机git安装
+
+<details>
+    <summary>新主机git安装</summary>
+<br>
+
+```bash
+sudo apt update
+sudo apt install git
+```
+## 配置秘钥 直接按enter就行
+
+```bash
+ssh-keygen -t rsa -b 4096 -C "y848787675@gmail.com"
+#查看秘钥
+cat /home/ubuntu/.ssh/id_rsa.pub
+#拷贝并存储在ghithub的设置SSH上
+```
+
+</details>
+
+# miniconda 安装
+
+<details>
+    <summary>miniconda 安装</summary>
+<br>
+    
+```bash
+mkdir -p ~/miniconda3
+wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda3/miniconda.sh
+bash ~/miniconda3/miniconda.sh -b -u -p ~/miniconda3
+rm -rf ~/miniconda3/miniconda.sh
+
+~/miniconda3/bin/conda init bash
+~/miniconda3/bin/conda init zsh
+
+```
+
+我们建议在一个虚拟环境下进行实验
+1、创建项目的虚拟环境，请确保您已经安装了[conda](https://docs.conda.io/en/latest/)，然后运行以下命令：
+
+```bash
+conda env create -f environment.yml
+```
+
+这将根据`environment.yml`文件中定义的配置创建一个新的虚拟环境。
+
+2、启动环境
+
+```bash
+conda activate langchain2
+```
+</details>
 
 <details>
     <summary>向量数据库设计构思图</summary>
