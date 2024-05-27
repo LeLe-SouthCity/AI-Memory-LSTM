@@ -63,13 +63,14 @@ conda activate langchain2
 ```
 </details>
 
+# MYSQL 数据库 （ubunt）配置
 <details>
     <summary>向量数据库设计构思图</summary>
 <br>
 
 ![向量数据库设计构思图](Images/AI-NPC长短期记忆设计V1.png "向量数据库设计构思图")
 
-# MYSQL 数据库 （ubunt）配置
+
 
 1、更新包管理器索引:打开终端并运行以下命令以更新包管理器的索引：
 
