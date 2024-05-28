@@ -14,7 +14,6 @@ persist_dir='/home/ubuntu/LSTM/src/testfile1_vecctor_db/chat_history_db'
 filename='/home/ubuntu/LSTM/src/testfile1/chat_history.docx'
 sql_utils = MYSQL_Utils(mysql_host=MYSQL_HOST, mysql_user=MYSQL_USER, mysql_password=MYSQL_PASSWORD, mysql_database=MYSQL_DATABASE)      
 get_ai_res = LLM_Response()
-vector_utils = Knowledge2Vector(persist_dir=persist_dir,filename=filename)
 
 # sql_utils.create_table()
 # 初始化会话状态
@@ -76,7 +75,7 @@ def display_history():
                 
 # Streamlit 应用
 def main():
-    
+    vector_utils = Knowledge2Vector(persist_dir=persist_dir,filename=filename)
     st.title("Chat with GPT")
     
     # 使用 number_input 获取整数输入，并设置默认值为 1000
@@ -88,7 +87,9 @@ def main():
     if st.session_state['chat_history']:
         # 计算 tokens
         st.session_state['tokens_compute'] = token_compute(st.session_state['short_history'])
-
+    
+    if st.session_state['tokens_compute']:
+        st.sidebar.header(f"""Chat History tokens:{st.session_state['tokens_compute']}""")
     # 聊天界面
     user_input = st.chat_input("Say something to GPT:")
     if st.session_state['tokens_compute'] > tokens_limit:
@@ -96,7 +97,8 @@ def main():
         
         # 1、保存----你可以在合适的地方调用这个函数，例如在会话结束时或定期保存聊天记录
         sql_utils.save_chat_history_from_db_to_json()
-        delete_directory(directory_path=persist_dir)
+        # vector_utils.delete_file_vector()
+        vector_utils.vector_file(updata='true')
         convert_json_to_word(json_file_path='chat_history.json',word_file_path=filename)
         # 2、删除chat_history数据库中的短期数据
         delete_query = "DELETE FROM chat_history"
@@ -104,8 +106,6 @@ def main():
         #3、清空网页的短期记忆
         st.session_state['short_history']=[]
         
-    if st.session_state['tokens_compute']:
-        st.sidebar.header(f"""Chat History tokens:{st.session_state['tokens_compute']}""")
     
     show_STM()   
             
@@ -113,13 +113,10 @@ def main():
         # 用户输入
         st.session_state['user_input'] = user_input
         
+        vector_utils = Knowledge2Vector(persist_dir=persist_dir,filename=filename)
         #向量数据获取
-        info=vector_utils.query_question(input=st.session_state['user_input'] )
+        st.session_state['LsTM_Vector_get']=vector_utils.query_question(input=user_input )
         
-        # content = chat_completion.choices[0].message.content
-        st.session_state['LsTM_Vector_get']=info
-        
-        st.session_state['LTM_Vector_get_all'] = info
         #总prompt 
         st.session_state['eleven_total_prompt'] = f"""
         

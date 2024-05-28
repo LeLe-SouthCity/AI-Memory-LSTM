@@ -6,3 +6,4 @@ unstructured
 "unstructured[pdf]"
 mysql-connector-python
 streamlit
+flask
