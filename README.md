@@ -2,11 +2,6 @@
 lstm的代码和发展
 
 
-```bash
-pip install langchain langchain-community langchainhub langchain-chroma bs4
-```
-
-
 # 环境配置
 
 # 新主机git安装
@@ -174,5 +169,35 @@ mysql: 包含了用户账户信息和权限等安全相关的数据。
 performance_schema: 用于收集数据库服务器性能参数，帮助监控和优化 MySQL 的性能。
 sys: 提供了一组视图和函数，使得数据库管理员更容易获取性能分析和数据库诊断的信息。
 
+
+</details>
+
+
+
+# MYSQL 代码运行
+<details>
+    <summary>代码运行</summary>
+<br>
+
+## GPT秘钥设置
+``` bash
+sudo vim ~/.bashrc
+#最后一行加入 
+export OPENAI_API_KEY="YOU OPENAI_KEY"
+
+source ~/.bashrc
+```
+
+
+## streamlit 运行
+
+``` bash
+streamlit run main.py
+```
+
+## falsk运行
+``` bash
+python falsk.py
+```
 
 </details>
