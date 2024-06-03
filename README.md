@@ -61,6 +61,12 @@ conda env create -f environment.yml
 ```bash
 conda activate langchain2
 ```
+
+3、下载依赖
+
+```bash
+pip install -r  requirement.txt
+```
 </details>
 
 # MYSQL 数据库 （ubunt）配置

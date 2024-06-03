@@ -44,7 +44,7 @@ class Knowledge2Vector():
             loader = UnstructuredFileLoader(self.filename)   # 使用 UnstructuredFileLoader 加载器来加载 PDF 文件
             # text_splitor = CharacterTextSplitter()      # 使用 CharacterTextSplitter 来分割文件中的文本
             text_splitor =RecursiveCharacterTextSplitter(
-                chunk_size = 200,
+                chunk_size = 500,
                 chunk_overlap = 50
             )
             docs = loader.load_and_split(text_splitor)  # 加载文件并进行文本分割
@@ -52,7 +52,7 @@ class Knowledge2Vector():
             loader = UnstructuredFileLoader(self.filename, mode="elements")  # 使用 UnstructuredFileLoader 加载器以元素模式加载文件
             # text_splitor = CharacterTextSplitter()      # 使用 CharacterTextSplitter 来分割文件中的文本
             text_splitor =RecursiveCharacterTextSplitter(
-                chunk_size = 200,
+                chunk_size = 500,
                 chunk_overlap = 50
             )
             docs = loader.load_and_split(text_splitor)  # 加载文件并进行文本分割
@@ -81,8 +81,8 @@ class Knowledge2Vector():
         return vectorstore
     
     
-    def query_question(self,input):
-        retriever = self.vector_file().as_retriever(
+    def query_question(self,input,updata='false'):
+        retriever = self.vector_file(updata).as_retriever(
                         search_type="mmr",
                         search_kwargs={'k': 3, 'lambda_mult': 0.5}
                     )
@@ -101,7 +101,51 @@ class Knowledge2Vector():
 
 
 
-vector = Knowledge2Vector(persist_dir='/home/ubuntu/LSTM/src/testfile1_vecctor_db/test2',filename='/home/ubuntu/LSTM/src/testfile1/chat_history.docx')
-while True:
-        question = input("请输入内容：")
-        print(vector.query_question(question))
+# vector = Knowledge2Vector(persist_dir='/home/ubuntu/LSTM/src/testfile1_vecctor_db/R2-D2_db',filename='/home/ubuntu/LSTM/src/testfile1/R2-D2.pdf')
+# while True:
+#         question = input("请输入内容：")
+#         print(vector.query_question(question,updata='true'))
+
+
+# from flask import Flask, request, jsonify
+# from werkzeug.utils import secure_filename
+# import os
+
+# app = Flask(__name__)
+
+# @app.route('/upload', methods=['POST'])
+# def upload_file():
+#     # 检查是否有文件在请求中
+#     if 'file' not in request.files:
+#         return 'No file part', 400
+#     file = request.files['file']
+#     # 如果用户没有选择文件，浏览器可能会提交一个没有文件名的空部分
+#     if file.filename == '':
+#         return 'No selected file', 400
+#     # 检查是否有 input 字段在表单数据中
+#     if 'input' not in request.form:
+#         return 'No input provided', 400
+#     user_input = request.form['input']  # 获取表单中的 input 字段
+#     print(user_input)
+#     if file:
+#         # 确保文件名安全
+#         filename = secure_filename(file.filename)
+#         # 保存文件到指定路径
+#         file_path = os.path.join('/home/ubuntu/LSTM/src/testfile1', filename)
+#         file.save(file_path)
+        
+#         # 创建 Knowledge2Vector 实例
+#         vector_db_path = os.path.join('/home/ubuntu/LSTM/src/testfile1_vecctor_db', os.path.splitext(filename)[0] + '_db')
+#         vector = Knowledge2Vector(persist_dir=vector_db_path, filename=file_path)
+        
+#         # 处理 input_text
+#         response = vector.query_question(user_input)
+#         print(response)
+#         # 文件处理完成后，返回成功消息和处理结果
+#         return jsonify({'message': 'File successfully uploaded and processed', 'response': response})
+
+
+# # 如果需要，可以添加其他路由和逻辑
+
+# if __name__ == '__main__':
+#     app.run(debug=True, host='0.0.0.0', port=5000)
